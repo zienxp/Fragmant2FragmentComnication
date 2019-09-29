@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MessageFragment.OnMessageSendListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +24,18 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_Contaniner,messageFragment,null).commit();
 
         }
+    }
+
+    @Override
+    public void onMessageSend(String message) {
+
+        DisplayFragment displayFragment = new DisplayFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("message",message);
+        displayFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_Contaniner,displayFragment,null).addToBackStack(null).commit();
+
+
     }
 }
